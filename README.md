@@ -1,3 +1,9 @@
+<!--
+ * @Author: xxlin
+ * @Date: 2019-04-11 20:34:14
+ * @LastEditors: xxlin
+ * @LastEditTime: 2019-05-14 16:06:42
+ -->
 # dirmap
 
 一个高级web目录扫描工具，功能将会强于DirBuster、Dirsearch、cansina、御剑
@@ -48,17 +54,37 @@ git clone https://github.com/H4ckForJob/dirmap.git && cd dirmap && python3 -m pi
 
 ## 快速使用
 
-### 单个目标
+### 输入目标
+
+单目标，默认为http
 
 ```shell
-python3 dirmap.py -iU https://target.com -lcf
+python3 dirmap.py -i https://target.com -lcf
 ```
-
-### 多个目标
 
 ```shell
-python3 dirmap.py -iF urls.txt -lcf
+python3 dirmap.py -i 192.168.1.1 -lcf
 ```
+
+子网
+
+```shell
+python3 dirmap.py -i 192.168.1.0/24 -lcf
+```
+
+网络范围
+
+```shell
+python3 dirmap.py -i 192.168.1.1-192.168.1.100 -lcf
+```
+
+### 文件读取
+
+```shell
+python3 dirmap.py -iF targets.txt -lcf
+```
+
+`targets.txt`中支持上述格式
 
 ### 结果保存
 
@@ -111,12 +137,14 @@ conf.blast_mode_custom_charset = "abc"
 conf.blast_mode_resume_charset = ""
 #爬虫模式:关闭:0;开启:1
 conf.crawl_mode = 0
+#用于生成动态敏感文件payload的后缀字典
+conf.crawl_mode_dynamic_fuzz_suffix = "crawl_mode_suffix.txt"
 #解析robots.txt文件。暂未实现。
 conf.crawl_mode_parse_robots = 0
 #解析html页面的xpath表达式
 conf.crawl_mode_parse_html = "//*/@href | //*/@src | //form/@action"
-#是否进行动态爬虫字典生成:关闭:0;开启:1
-conf.crawl_mode_dynamic_fuzz = 0
+#是否进行动态爬虫字典生成。默认配置1，开启爬虫动态字典生成。其他配置：e.g:关闭:0;开启:1
+conf.crawl_mode_dynamic_fuzz = 1
 #Fuzz模式:关闭:0;单字典:1;多字典:2
 conf.fuzz_mode = 0
 #单字典模式的路径。
